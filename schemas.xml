@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
+
+  <uri pattern="*/https-everywhere@eff.org/chrome/content/rules/*.xml" typeId="HTTPS-everywhere" />
+  <uri pattern="*/https-everywhere/pending-rules/*.xml" typeId="HTTPS-everywhere"/>
+  <uri pattern="*HTTPSEverywhereUserRules/*.xml" typeId="HTTPS-everywhere"/>
+  <uri pattern="*.gpx" typeId="GPX"/>
+
+  <typeId id="GPX"
+          uri="gpx.rnc" />
+  <typeId id="HTTPS-everywhere"
+          uri="https-everywhere.rnc" />
+  <typeId id="HTTPS-everywhere trailing /"
+          uri="https-everywhere-trailing-slash-required.rnc" />
+
+</locatingRules>
