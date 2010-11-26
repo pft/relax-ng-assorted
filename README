@@ -1,0 +1,9 @@
+In this repository I will collect useful relax-ng grammars in the compact syntax (.rnc files).
+
+Also present is a schemas.xml file that can be used to locate
+appropriate (here provided) schemas for files.
+
+In Emacs, add the schemas.xml file to `rng-schema-locating-files' to
+start using these grammars.
+
+
