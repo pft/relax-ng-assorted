@@ -1,0 +1,51 @@
+# Use this to validate rules that require trailing slashes in their
+# attributes
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+
+start = ruleset
+ruleset =
+   element ruleset {
+      attribute name { text },
+      attribute match_rule { text }?,
+      attribute default_off { text }
+      >> a:documentation [
+         """
+
+         When default_off is present, the rule is off by default.
+         The value should state the reason why it is off by default.
+
+         """
+      ]?,
+      (
+         element target {
+            attribute host { text }
+         }+
+       &
+         element securecookie {
+            attribute host { text },
+            attribute name { text }
+         }*
+       &
+         element exclusion {
+            attribute pattern { text }
+         }*
+       &
+         element rule {
+            ## from attribute should:
+            ## - not have unescaped dots left of a slash: ok
+            ## - have trailing slash: ok
+            ## - be anchored to the beginning of a line: ok
+            ## - not contain non-ASCII characters (possible homoglyph
+            ## attacks): nok (but I reckon this is a rule that will be
+            ## broken as unicode domains are allowed nowadays)
+            attribute from { xsd:string { pattern = "\^([^.]|\\.)*/([^/]*)/" } },
+            ## to attribute should:
+            ## - have trailing slash: ok
+            ## - not contain non-ASCII characters (possible homoglyph
+            ## attacks): nok (but I reckon this is a rule that will be
+            ## broken as unicode domains are allowed nowadays)
+            ## - not redirect to http://
+            attribute to { xsd:string { pattern = "https://.*/" } }
+         }+
+      )
+   }
